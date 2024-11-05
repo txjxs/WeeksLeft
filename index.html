@@ -12,8 +12,12 @@
 <body>
     <!-- Navbar containing user's name on the left and theme toggle on the right -->
     <nav id="navbar">
+        <!-- Display user's name on the left -->
         <span id="user-name-display">Friend</span>
-        <button id="theme-toggle" onclick="toggleTheme()">Toggle Dark Mode</button>
+        <!-- Theme toggle button with icon for dark and light mode -->
+        <button id="theme-toggle" onclick="toggleTheme()">
+            <img src="assets/moon.svg" alt="Dark Mode Icon" id="theme-icon">
+        </button>
     </nav>
 
     <!-- Main header with personalized welcome message -->

@@ -7,6 +7,7 @@ const currentAgeElem = document.getElementById('current-age');
 const weeksLivedElem = document.getElementById('weeks-lived');
 const weeksLeftElem = document.getElementById('weeks-left');
 const lifeGrid = document.getElementById('life-grid');
+const themeIcon = document.getElementById('theme-icon');
 
 // Check if name is stored; if not, prompt the user
 document.addEventListener('DOMContentLoaded', () => {
@@ -41,6 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Apply saved theme preference
     if (localStorage.getItem('theme') === 'dark') {
         document.body.classList.add('dark');
+        themeIcon.src = 'assets/sun.svg';
     }
 });
 
@@ -85,9 +87,12 @@ function generateGrid() {
     }
 }
 
-// Toggle between light and dark mode
+// Toggle between light and dark mode, updating the theme icon
 function toggleTheme() {
     document.body.classList.toggle('dark');
     const theme = document.body.classList.contains('dark') ? 'dark' : 'light';
     localStorage.setItem('theme', theme);
+
+    // Update icon based on the current theme
+    themeIcon.src = theme === 'dark' ? 'assets/sun.svg' : 'assets/moon.svg';
 }

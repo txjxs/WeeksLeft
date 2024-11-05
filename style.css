@@ -10,29 +10,46 @@ body {
     transition: background-color 0.3s, color 0.3s;
 }
 
-/* Navbar styling with space between user name and theme toggle */
+/* Navbar styling with added padding, centering, and balanced spacing */
 #navbar {
     width: 100%;
-    padding: 10px 20px;
+    padding: 10px 30px; /* Added padding for balanced look */
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: center; /* Center-align elements vertically */
     font-size: 18px;
     background-color: #f4f4f4;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     position: sticky;
     top: 0;
+    z-index: 10;
+    box-sizing: border-box;
 }
 
-/* Styling for the theme toggle button */
+/* Styling for user name in navbar */
+#user-name-display {
+    font-size: 20px;
+    font-weight: 600;
+    padding-top: 2px; /* Adjusted to remove excess space below */
+}
+
+/* Theme toggle button styling */
 #theme-toggle {
     font-family: inherit;
-    font-size: 16px;
-    padding: 5px 10px;
+    padding: 0; /* Remove extra padding */
     cursor: pointer;
     border: none;
     background-color: transparent;
-    color: inherit;
+    display: flex;
+    align-items: center; /* Center icon within the button */
+    margin: 0; /* Remove any default margin */
+}
+
+/* Theme icon within the theme toggle button */
+#theme-icon {
+    width: 24px;
+    height: 24px;
+    transition: transform 0.3s;
 }
 
 /* Main header styling */
