@@ -4,11 +4,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Life Weeks</title>
+    <!-- Link to external CSS file -->
     <link rel="stylesheet" href="style.css">
+    <!-- Link to Google Font for stoic look -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@600&display=swap">
 </head>
 <body>
-    <h1>How Many Weeks Left in Your Life?</h1>
+    <!-- Navbar containing user's name on the left and theme toggle on the right -->
+    <nav id="navbar">
+        <span id="user-name-display">Friend</span>
+        <button id="theme-toggle" onclick="toggleTheme()">Toggle Dark Mode</button>
+    </nav>
+
+    <!-- Main header with personalized welcome message -->
+    <h1>Welcome, <span id="user-name">Friend</span>!</h1>
+
+    <!-- Controls for birthdate input -->
+    <div id="controls">
+        <label for="birthdate">Birthdate:</label>
+        <input type="date" id="birthdate">
+    </div>
+
+    <!-- Display progress information (age, weeks lived, weeks left) -->
+    <div id="progress">
+        <p>Current Age: <span id="current-age">0</span> years</p>
+        <p>Weeks Lived: <span id="weeks-lived">0</span></p>
+        <p>Weeks Left: <span id="weeks-left">0</span></p>
+    </div>
+
+    <!-- Grid container for the life weeks display -->
     <div id="life-grid"></div>
+
+    <!-- Link to external JavaScript file -->
     <script src="script.js"></script>
 </body>
 </html>
