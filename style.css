@@ -1,0 +1,31 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f0f0f0;
+}
+
+h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+#life-grid {
+    display: grid;
+    grid-template-columns: repeat(52, 10px);
+    gap: 2px;
+}
+
+.week-box {
+    width: 10px;
+    height: 10px;
+    background-color: #d3d3d3;
+}
+
+.past-week {
+    background-color: #ff6347; /* Example color for past weeks */
+}
