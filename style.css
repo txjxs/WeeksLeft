@@ -10,13 +10,14 @@ body {
     transition: background-color 0.3s, color 0.3s;
 }
 
-/* Navbar styling with added padding, centering, and balanced spacing */
+/* Navbar styling with padding, centering, and balanced spacing */
+/* Navbar styling with padding, centering, and balanced spacing */
 #navbar {
     width: 100%;
-    padding: 10px 30px; /* Added padding for balanced look */
+    padding: 10px 30px;
     display: flex;
     justify-content: space-between;
-    align-items: center; /* Center-align elements vertically */
+    align-items: center;
     font-size: 18px;
     background-color: #f4f4f4;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -28,21 +29,28 @@ body {
 
 /* Styling for user name in navbar */
 #user-name-display {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 600;
-    padding-top: 2px; /* Adjusted to remove excess space below */
+}
+
+/* Site title in the center of the navbar */
+#site-title {
+    font-size: 20px;
+    font-weight: 700;
+    font-family: 'Crimson Pro', serif;
+    text-align: center;
 }
 
 /* Theme toggle button styling */
 #theme-toggle {
     font-family: inherit;
-    padding: 0; /* Remove extra padding */
+    padding: 0;
     cursor: pointer;
     border: none;
     background-color: transparent;
     display: flex;
-    align-items: center; /* Center icon within the button */
-    margin: 0; /* Remove any default margin */
+    align-items: center;
+    margin: 0;
 }
 
 /* Theme icon within the theme toggle button */
@@ -51,6 +59,7 @@ body {
     height: 24px;
     transition: transform 0.3s;
 }
+
 
 /* Main header styling */
 h1 {
@@ -73,19 +82,58 @@ h1 {
 /* Life grid styling */
 #life-grid {
     display: grid;
-    grid-template-columns: repeat(52, minmax(8px, 1fr));
-    gap: 1px;
-    max-width: 80%;
+    grid-template-columns: repeat(52, minmax(12px, 1fr)); /* Increase min size for larger blocks */
+    gap: 4px; /* Increase gap slightly for better spacing */
+    max-width: 90%; /* Slightly increase max width */
     padding: 10px;
 }
+/* Styles for stats cards below the life grid */
+#stats-cards {
+    display: flex;
+    gap: 20px; /* Space between cards */
+    margin-top: 30px;
+    flex-wrap: wrap; /* Ensure wrapping on smaller screens */
+    justify-content: center;
+    max-width: 90%;
+}
 
-/* Each week box styling */
+.stat-card {
+    background-color: #f4f4f4;
+    border-radius: 8px;
+    padding: 20px;
+    width: 150px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s;
+}
+
+.stat-card h3 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.stat-card p {
+    font-size: 24px;
+    font-weight: 700;
+    margin: 10px 0 0;
+}
+
+/* Dark mode styles for the stats cards */
+body.dark .stat-card {
+    background-color: #333;
+    color: #f5f5f5;
+}
+
+
+/* Each week box styling with rounded corners and increased size */
 .week-box {
     width: 100%;
-    padding-top: 100%;
+    padding-top: 100%; /* Maintain square shape */
     background-color: #e0e0e0;
     transition: background-color 0.3s ease;
     cursor: pointer;
+    border-radius: 50%; /* Make the blocks rounded */
 }
 
 .past-week {
@@ -108,4 +156,47 @@ body.dark .week-box {
 
 body.dark .past-week {
     background-color: #ccc;
+}
+/* Style for the date selector container */
+#controls {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    font-size: 21px;
+    font-weight: 600;
+}
+
+/* Style for the label */
+#controls label {
+    margin-right: 10px;
+}
+
+/* Minimalist date selector with consistent font size and line thickness */
+#birthdate {
+    padding: 5px 0;
+    border: none;
+    border-bottom: 1.5px solid #333; /* Slightly thinner bottom border */
+    font-size: 18px; /* Adjusted font size for consistency */
+    outline: none;
+    background: none;
+    color: #333;
+    font-family: inherit;
+    transition: border-color 0.3s, color 0.3s;
+    width: 100px;
+    text-align: center;
+}
+
+/* Focus effect for date selector */
+#birthdate:focus {
+    border-color: #000;
+}
+
+/* Dark mode styles for date selector */
+body.dark #birthdate {
+    border-bottom: 1.5px solid #f5f5f5;
+    color: #f5f5f5;
+}
+
+body.dark #birthdate:focus {
+    border-color: #fff;
 }

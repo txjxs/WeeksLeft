@@ -3,28 +3,36 @@ const LIFE_EXPECTANCY = 80;
 
 // Elements for controls and displaying progress
 const birthdateInput = document.getElementById('birthdate');
-const currentAgeElem = document.getElementById('current-age');
-const weeksLivedElem = document.getElementById('weeks-lived');
-const weeksLeftElem = document.getElementById('weeks-left');
 const lifeGrid = document.getElementById('life-grid');
 const themeIcon = document.getElementById('theme-icon');
+const controls = document.getElementById('controls'); // Date selector container
 
-// Check if name is stored; if not, prompt the user
+// Elements for stat cards
+const daysLivedElem = document.getElementById('days-lived');
+const weeksLivedCardElem = document.getElementById('weeks-lived-card');
+const monthsLivedElem = document.getElementById('months-lived');
+const secondsLivedElem = document.getElementById('seconds-lived');
+
+// Variable to store the base seconds lived and interval reference
+let baseSecondsLived = 0;
+let secondsInterval;
+
+// Check if name and birthdate are stored; if not, prompt the user
 document.addEventListener('DOMContentLoaded', () => {
     const savedName = localStorage.getItem('userName');
+    const savedBirthdate = localStorage.getItem('birthdate');
     const userNameElement = document.getElementById('user-name');
     const userNameDisplay = document.getElementById('user-name-display');
 
     // Check if user name is already saved
     if (!savedName) {
-        // Prompt for name if it’s the first visit
         const userName = prompt("Welcome! What's your name?");
         if (userName) {
             localStorage.setItem('userName', userName);
             userNameElement.textContent = userName;
             userNameDisplay.textContent = userName;
         } else {
-            userNameElement.textContent = "Friend"; // Default if name isn't provided
+            userNameElement.textContent = "Friend";
             userNameDisplay.textContent = "Friend";
         }
     } else {
@@ -32,11 +40,15 @@ document.addEventListener('DOMContentLoaded', () => {
         userNameDisplay.textContent = savedName;
     }
 
-    // Load saved birthdate
-    const savedBirthdate = localStorage.getItem('birthdate');
+    // Check if birthdate is set in localStorage
     if (savedBirthdate) {
+        // Hide date selector if birthdate is already set
         birthdateInput.value = savedBirthdate;
+        controls.style.display = "none"; // Hide the date selector container
         generateGrid();
+    } else {
+        // Show date selector and prompt for birthdate
+        controls.style.display = "flex"; // Ensure the date selector is visible
     }
 
     // Apply saved theme preference
@@ -46,18 +58,19 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-// Save birthdate and regenerate grid on change
+// Save birthdate and hide the date selector after setting
 birthdateInput.addEventListener('change', () => {
     localStorage.setItem('birthdate', birthdateInput.value);
+    controls.style.display = "none"; // Hide the date selector after setting
     generateGrid();
 });
 
-// Function to calculate and update the grid
+// Function to calculate and update the grid and stats cards
 function generateGrid() {
-    // Clear existing grid
+    // Clear existing grid and reset interval if it exists
     lifeGrid.innerHTML = '';
+    clearInterval(secondsInterval);
 
-    // Get birthdate and calculate age in weeks
     const birthdate = new Date(birthdateInput.value);
     if (isNaN(birthdate)) {
         alert("Please select a valid birthdate.");
@@ -65,15 +78,22 @@ function generateGrid() {
     }
 
     const currentDate = new Date();
-    const ageInWeeks = Math.floor((currentDate - birthdate) / (1000 * 60 * 60 * 24 * 7));
+    const ageInMilliseconds = currentDate - birthdate;
+    const ageInWeeks = Math.floor(ageInMilliseconds / (1000 * 60 * 60 * 24 * 7));
     const totalWeeks = LIFE_EXPECTANCY * 52;
-    const weeksLeft = totalWeeks - ageInWeeks;
 
-    // Update progress display
-    const currentAge = Math.floor(ageInWeeks / 52);
-    currentAgeElem.textContent = currentAge;
-    weeksLivedElem.textContent = ageInWeeks;
-    weeksLeftElem.textContent = Math.max(weeksLeft, 0);
+    // Calculate and display values for stat cards
+    const ageInDays = Math.floor(ageInMilliseconds / (1000 * 60 * 60 * 24));
+    const ageInMonths = Math.floor(ageInDays / 30.44);
+    baseSecondsLived = Math.floor(ageInMilliseconds / 1000);
+
+    daysLivedElem.textContent = ageInDays;
+    weeksLivedCardElem.textContent = ageInWeeks;
+    monthsLivedElem.textContent = ageInMonths;
+    secondsLivedElem.textContent = baseSecondsLived;
+
+    // Start real-time seconds counter
+    startRealTimeCounter();
 
     // Generate grid cells based on lifespan
     for (let i = 0; i < totalWeeks; i++) {
@@ -85,6 +105,14 @@ function generateGrid() {
         }
         lifeGrid.appendChild(weekBox);
     }
+}
+
+// Function to start the real-time seconds counter
+function startRealTimeCounter() {
+    secondsInterval = setInterval(() => {
+        baseSecondsLived += 1;
+        secondsLivedElem.textContent = baseSecondsLived;
+    }, 1000);
 }
 
 // Toggle between light and dark mode, updating the theme icon

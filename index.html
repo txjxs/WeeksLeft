@@ -10,16 +10,20 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@600&display=swap">
 </head>
 <body>
-    <!-- Navbar containing user's name on the left and theme toggle on the right -->
+    <!-- Navbar containing user's name on the left, title in the center, and theme toggle on the right -->
     <nav id="navbar">
         <!-- Display user's name on the left -->
         <span id="user-name-display">Friend</span>
+        
+        <!-- Site title in the center -->
+        <span id="site-title">Weeks Left to Live</span>
+        
         <!-- Theme toggle button with icon for dark and light mode -->
         <button id="theme-toggle" onclick="toggleTheme()">
             <img src="assets/moon.svg" alt="Dark Mode Icon" id="theme-icon">
         </button>
     </nav>
-
+    
     <!-- Main header with personalized welcome message -->
     <h1>Welcome, <span id="user-name">Friend</span>!</h1>
 
@@ -28,18 +32,32 @@
         <label for="birthdate">Birthdate:</label>
         <input type="date" id="birthdate">
     </div>
-
-    <!-- Display progress information (age, weeks lived, weeks left) -->
-    <div id="progress">
-        <p>Current Age: <span id="current-age">0</span> years</p>
-        <p>Weeks Lived: <span id="weeks-lived">0</span></p>
-        <p>Weeks Left: <span id="weeks-left">0</span></p>
-    </div>
-
+    
     <!-- Grid container for the life weeks display -->
     <div id="life-grid"></div>
+    
+    <!-- Cards to display life statistics -->
+    <div id="stats-cards">
+        <div class="stat-card">
+            <h3>Days Lived</h3>
+            <p id="days-lived">0</p>
+        </div>
+        <div class="stat-card">
+            <h3>Weeks Lived</h3>
+            <p id="weeks-lived-card">0</p>
+        </div>
+        <div class="stat-card">
+            <h3>Months Lived</h3>
+            <p id="months-lived">0</p>
+        </div>
+        <div class="stat-card">
+            <h3>Seconds Lived</h3>
+            <p id="seconds-lived">0</p>
+        </div>
+    </div>
 
     <!-- Link to external JavaScript file -->
     <script src="script.js"></script>
 </body>
+
 </html>
