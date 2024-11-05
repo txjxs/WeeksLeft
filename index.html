@@ -23,7 +23,14 @@
             <img src="assets/moon.svg" alt="Dark Mode Icon" id="theme-icon">
         </button>
     </nav>
-    
+
+    <!-- Main content section with name input if name isn't saved -->
+    <div id="name-input-section">
+        <label for="user-name-input">Enter your name:</label>
+        <input type="text" id="user-name-input" placeholder="Your name">
+        <button onclick="saveName()">Save</button>
+    </div>
+
     <!-- Main header with personalized welcome message -->
     <h1>Welcome, <span id="user-name">Friend</span>!</h1>
 

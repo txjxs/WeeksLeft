@@ -6,6 +6,10 @@ const birthdateInput = document.getElementById('birthdate');
 const lifeGrid = document.getElementById('life-grid');
 const themeIcon = document.getElementById('theme-icon');
 const controls = document.getElementById('controls'); // Date selector container
+const nameInputSection = document.getElementById('name-input-section'); // Name input section
+const userNameInput = document.getElementById('user-name-input');
+const userNameDisplay = document.getElementById('user-name-display');
+const userNameElement = document.getElementById('user-name');
 
 // Elements for stat cards
 const daysLivedElem = document.getElementById('days-lived');
@@ -21,34 +25,25 @@ let secondsInterval;
 document.addEventListener('DOMContentLoaded', () => {
     const savedName = localStorage.getItem('userName');
     const savedBirthdate = localStorage.getItem('birthdate');
-    const userNameElement = document.getElementById('user-name');
-    const userNameDisplay = document.getElementById('user-name-display');
 
     // Check if user name is already saved
     if (!savedName) {
-        const userName = prompt("Welcome! What's your name?");
-        if (userName) {
-            localStorage.setItem('userName', userName);
-            userNameElement.textContent = userName;
-            userNameDisplay.textContent = userName;
-        } else {
-            userNameElement.textContent = "Friend";
-            userNameDisplay.textContent = "Friend";
-        }
+        // Show name input section if no name is saved
+        nameInputSection.style.display = 'flex';
     } else {
+        // Display saved name
         userNameElement.textContent = savedName;
         userNameDisplay.textContent = savedName;
+        nameInputSection.style.display = 'none';
     }
 
     // Check if birthdate is set in localStorage
     if (savedBirthdate) {
-        // Hide date selector if birthdate is already set
         birthdateInput.value = savedBirthdate;
         controls.style.display = "none"; // Hide the date selector container
-        generateGrid();
+        generateGrid(); // Generate grid if birthdate is already set
     } else {
-        // Show date selector and prompt for birthdate
-        controls.style.display = "flex"; // Ensure the date selector is visible
+        controls.style.display = "flex"; // Show the date selector if birthdate is not set
     }
 
     // Apply saved theme preference
@@ -58,11 +53,25 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-// Save birthdate and hide the date selector after setting
+// Save the user's name and hide the input field
+function saveName() {
+    const userName = userNameInput.value.trim();
+    if (userName) {
+        localStorage.setItem('userName', userName);
+        userNameElement.textContent = userName;
+        userNameDisplay.textContent = userName;
+        nameInputSection.style.display = 'none';
+    }
+}
+
+// Save birthdate, hide the date selector, and generate the grid
 birthdateInput.addEventListener('change', () => {
-    localStorage.setItem('birthdate', birthdateInput.value);
-    controls.style.display = "none"; // Hide the date selector after setting
-    generateGrid();
+    const selectedDate = birthdateInput.value;
+    if (selectedDate) {
+        localStorage.setItem('birthdate', selectedDate);
+        controls.style.display = "none"; // Hide the date selector after setting
+        generateGrid(); // Generate the grid once birthdate is set
+    }
 });
 
 // Function to calculate and update the grid and stats cards
