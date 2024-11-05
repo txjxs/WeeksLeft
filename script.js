@@ -17,21 +17,39 @@ const weeksLivedCardElem = document.getElementById('weeks-lived-card');
 const monthsLivedElem = document.getElementById('months-lived');
 const secondsLivedElem = document.getElementById('seconds-lived');
 
+// Elements for quote display
+const quoteTextElem = document.getElementById('quote-text');
+const quoteAuthorElem = document.getElementById('quote-author');
+
 // Variable to store the base seconds lived and interval reference
 let baseSecondsLived = 0;
 let secondsInterval;
 
+// Function to fetch and display a stoic quote
+async function fetchStoicQuote() {
+    try {
+        const response = await fetch('https://stoic.tekloon.net/stoic-quote');
+        const data = await response.json();
+        quoteTextElem.textContent = `"${data.data.quote}"`;
+        quoteAuthorElem.textContent = `- ${data.data.author}`;
+    } catch (error) {
+        console.error('Error fetching quote:', error);
+        quoteTextElem.textContent = "Failed to load quote. Try refreshing the page.";
+        quoteAuthorElem.textContent = "";
+    }
+}
+
 // Check if name and birthdate are stored; if not, prompt the user
 document.addEventListener('DOMContentLoaded', () => {
+    fetchStoicQuote(); // Fetch the quote when the page loads
+
     const savedName = localStorage.getItem('userName');
     const savedBirthdate = localStorage.getItem('birthdate');
 
     // Check if user name is already saved
     if (!savedName) {
-        // Show name input section if no name is saved
         nameInputSection.style.display = 'flex';
     } else {
-        // Display saved name
         userNameElement.textContent = savedName;
         userNameDisplay.textContent = savedName;
         nameInputSection.style.display = 'none';
@@ -64,7 +82,7 @@ function saveName() {
     }
 }
 
-// Save birthdate, hide the date selector, and generate the grid
+// Save birthdate and hide the date selector after setting
 birthdateInput.addEventListener('change', () => {
     const selectedDate = birthdateInput.value;
     if (selectedDate) {
